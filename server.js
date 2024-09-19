@@ -20,3 +20,16 @@ app.get('/notes', (req,res) => {
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
   });
+
+  // API Routes
+
+  app.get('/api/notes', (req, res) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to read notes' });
+      } else {
+        res.json(JSON.parse(data));
+      }
+    });
+  });
