@@ -66,5 +66,10 @@ app.post('/api/notes', (req, res) => {
           }
         });
     
+// BONUS: DELETE /api/notes/:id - Delete a note by its ID
 
+// Start the server
+app.listen(PORT, () =>
+    console.log(`Server is running on http://localhost:${PORT}`)
+  );
 
