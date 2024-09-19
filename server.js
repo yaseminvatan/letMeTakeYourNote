@@ -43,6 +43,13 @@ app.get('*', (req, res) => {
         title,
         text,
       };
+     fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        if (err) {
+          console.error(err);
+          res.status(500).json({ error: 'Failed to read notes' });
+        } else {
+          const notes = JSON.parse(data);
+          notes.push(newNote);
 
     }
 })
