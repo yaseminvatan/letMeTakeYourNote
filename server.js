@@ -7,58 +7,61 @@ const PORT = process.env.PORT || 3001;
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('public'));
 
 //html routes
 
-app.get('/notes', (req,res) => {
+app.get('/notes', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/notes.html'));
 });
 
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/index.html'));
-  });
+});
 
-  // API Routes
+// API Routes
 
-  app.get('/api/notes', (req, res) => {
+app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf8', (err, data) => {
-      if (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Failed to read notes' });
-      } else {
-        res.json(JSON.parse(data));
-      }
-    });
-  });
-
-  app.post('/api/notes', (req, res) => {
-    const { title, text } = req.body;
-  
-    if (title && text) {
-      const newNote = {
-        id: uuidv4(), // Generate unique ID
-        title,
-        text,
-      };
-     fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
-          console.error(err);
-          res.status(500).json({ error: 'Failed to read notes' });
+            console.error(err);
+            res.status(500).json({ error: 'Failed to read notes' });
         } else {
-          const notes = JSON.parse(data);
-          notes.push(newNote);
+            res.json(JSON.parse(data));
+        }
+    });
+});
 
-          fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
+app.post('/api/notes', (req, res) => {
+    const { title, text } = req.body;
+
+    if (title && text) {
+        const newNote = {
+            id: uuidv4(), // Generate unique ID
+            title,
+            text,
+        };
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
-              console.error(err);
-              res.status(500).json({ error: 'Failed to save note' });
+                console.error(err);
+                res.status(500).json({ error: 'Failed to read notes' });
             } else {
-              res.json(newNote);
-            }
-          });
+                const notes = JSON.parse(data);
+                notes.push(newNote);
 
+                fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
+                    if (err) {
+                        console.error(err);
+                        res.status(500).json({ error: 'Failed to save note' });
+                    } else {
+                        res.json(newNote);
+                    }
+                });
+
+            }
+        });
     }
-})
+});
+
