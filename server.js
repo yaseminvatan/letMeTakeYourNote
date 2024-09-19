@@ -51,5 +51,14 @@ app.get('*', (req, res) => {
           const notes = JSON.parse(data);
           notes.push(newNote);
 
+          fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
+            if (err) {
+              console.error(err);
+              res.status(500).json({ error: 'Failed to save note' });
+            } else {
+              res.json(newNote);
+            }
+          });
+
     }
 })
