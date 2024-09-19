@@ -59,9 +59,12 @@ app.post('/api/notes', (req, res) => {
                         res.json(newNote);
                     }
                 });
-
-            }
+              }
+            });
+          } else {
+            res.status(400).json({ error: 'Please provide both a title and text' });
+          }
         });
-    }
-});
+    
+
 
