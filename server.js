@@ -10,3 +10,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 app.use(express.static('public'));
+
+//html routes
+
+app.get('/notes', (req,res) => {
+    res.sendFile(path.join(__dirname, '/public/notes.html'));
+});
