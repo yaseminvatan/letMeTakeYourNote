@@ -33,3 +33,16 @@ app.get('*', (req, res) => {
       }
     });
   });
+
+  app.post('/api/notes', (req, res) => {
+    const { title, text } = req.body;
+  
+    if (title && text) {
+      const newNote = {
+        id: uuidv4(), // Generate unique ID
+        title,
+        text,
+      };
+
+    }
+})
