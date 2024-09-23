@@ -1,6 +1,7 @@
 const express = require("express");
-const path = require('fs');
+const path = require('path');
 const { v4: uuidv4 } = require('uuid'); // for each note a uniqie id 
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -14,17 +15,15 @@ app.use(express.static('public'));
 //html routes
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/notes.html'));
+    res.sendFile(path.join(__dirname, './Develop/public/notes.html')); // /Users/yaseminvatan/bootcamp/homeworks/UCBhomeworks/letMeTakeYourNote/Develop/public/index.html
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'));
-});
+
 
 // API Routes
 
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Failed to read notes' });
@@ -43,7 +42,7 @@ app.post('/api/notes', (req, res) => {
             title,
             text,
         };
-        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+        fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 res.status(500).json({ error: 'Failed to read notes' });
@@ -51,7 +50,7 @@ app.post('/api/notes', (req, res) => {
                 const notes = JSON.parse(data);
                 notes.push(newNote);
 
-                fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
+                fs.writeFile('./Develop/db/db.json', JSON.stringify(notes, null, 2), (err) => {
                     if (err) {
                         console.error(err);
                         res.status(500).json({ error: 'Failed to save note' });
@@ -66,6 +65,9 @@ app.post('/api/notes', (req, res) => {
           }
         });
     
+        app.get('*', (req, res) => {
+            res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+        });
 // BONUS: DELETE /api/notes/:id - Delete a note by its ID
 
 // Start the server
