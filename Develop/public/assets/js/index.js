@@ -192,3 +192,4 @@ if (window.location.pathname === '/notes') {
 }
 
 getAndRenderNotes();
+console.log('Index.js is loaded and executing!');
