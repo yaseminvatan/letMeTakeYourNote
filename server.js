@@ -15,7 +15,7 @@ app.use(express.static('public'));
 //html routes
 
 app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './Develop/public/notes.html')); // /Users/yaseminvatan/bootcamp/homeworks/UCBhomeworks/letMeTakeYourNote/Develop/public/index.html
+    res.sendFile(path.join(__dirname, './public/notes.html')); // /Users/yaseminvatan/bootcamp/homeworks/UCBhomeworks/letMeTakeYourNote/public/index.html
 });
 
 
@@ -23,7 +23,7 @@ app.get('/notes', (req, res) => {
 // API Routes
 // get all notes
 app.get('/api/notes', (req, res) => {
-    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Failed to read notes' });
@@ -42,7 +42,7 @@ app.post('/api/notes', (req, res) => {
             title,
             text,
         };
-        fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
             if (err) {
                 console.error(err);
                 res.status(500).json({ error: 'Failed to read notes' });
@@ -50,7 +50,7 @@ app.post('/api/notes', (req, res) => {
                 const notes = JSON.parse(data);
                 notes.push(newNote);
 
-                fs.writeFile('./Develop/db/db.json', JSON.stringify(notes, null, 2), (err) => {
+                fs.writeFile('./db/db.json', JSON.stringify(notes, null, 2), (err) => {
                     if (err) {
                         console.error(err);
                         res.status(500).json({ error: 'Failed to save note' });
@@ -64,9 +64,10 @@ app.post('/api/notes', (req, res) => {
             res.status(400).json({ error: 'Please provide both a title and text' });
           }
         });
-    
+        
+        app.use(express.static('public'));
         app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, './Develop/public/index.html'));
+            res.sendFile(path.join(__dirname, './public/index.html'));
         });
 // BONUS: DELETE /api/notes/:id - Delete a note by its ID
 // DELETE route to remove a note by ID
@@ -74,7 +75,7 @@ app.delete('/api/notes/:id', (req, res) => {
     const noteId = req.params.id; // Get the note ID from the route parameter
 
     // Read the existing notes from the db.json file
-    fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
+    fs.readFile('./db/db.json', 'utf8', (err, data) => {
         if (err) {
             console.error(err);
             res.status(500).json({ error: 'Failed to read notes' });
@@ -83,7 +84,7 @@ app.delete('/api/notes/:id', (req, res) => {
             const filteredNotes = notes.filter(note => note.id !== noteId); // Remove the note with the matching ID
 
             // Write the updated notes back to the db.json file
-            fs.writeFile('./Develop/db/db.json', JSON.stringify(filteredNotes, null, 2), (err) => {
+            fs.writeFile('./db/db.json', JSON.stringify(filteredNotes, null, 2), (err) => {
                 if (err) {
                     console.error(err);
                     res.status(500).json({ error: 'Failed to delete note' });
