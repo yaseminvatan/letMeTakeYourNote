@@ -21,7 +21,7 @@ app.get('/notes', (req, res) => {
 
 
 // API Routes
-
+// get all notes
 app.get('/api/notes', (req, res) => {
     fs.readFile('./Develop/db/db.json', 'utf8', (err, data) => {
         if (err) {
@@ -32,7 +32,7 @@ app.get('/api/notes', (req, res) => {
         }
     });
 });
-
+// save a new note
 app.post('/api/notes', (req, res) => {
     const { title, text } = req.body;
 
