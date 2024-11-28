@@ -27,7 +27,9 @@ app.get('/api/notes', (req, res) => {
             console.error('Error reading db.json:', err);
             res.status(500).json({ error: 'Failed to read notes' });
         } else {
+            console.log("JSON.parse(data) is working")
             res.json(JSON.parse(data));
+            
         }
     });
 });
@@ -97,7 +99,7 @@ app.delete('/api/notes/:id', (req, res) => {
 // Fallback Route (for all unmatched routes)
 app.get('*', (req, res) => {
     // FIX: Corrected path to "index.html"
-    res.sendFile(path.join(__dirname, './public/index.html'));
+    res.sendFile(path.join(__dirname, '/public/index.html'));
 });
 
 // Start the Server

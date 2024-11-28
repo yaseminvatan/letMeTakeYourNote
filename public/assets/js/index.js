@@ -4,6 +4,7 @@ let noteText;
 let saveNoteBtn;
 let newNoteBtn;
 let noteList;
+let clearBtn;
 
 if (window.location.pathname === '/notes') {
   noteForm = document.querySelector('.note-form');
@@ -12,17 +13,22 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   clearBtn = document.querySelector('.clear-btn');
-  noteList = document.querySelectorAll('.list-container .list-group');
+  noteList = document.querySelector('.list-container .list-group');
+
+//   saveNoteBtn.addEventListener('click', handleNoteSave);
+//   newNoteBtn.addEventListener('click', handleNewNoteView);
+//   clearBtn.addEventListener('click', renderActiveNote);
+//   noteForm.addEventListener('input', handleRenderBtns);
 }
+// getAndRenderNotes();
 
 // Show an element
 const show = (elem) => {
-  elem.style.display = 'inline';
+  if (elem) elem.style.display = 'inline';
 };
-
 // Hide an element
 const hide = (elem) => {
-  elem.style.display = 'none';
+  if (elem) elem.style.display = 'none';
 };
 
 // activeNote is used to keep track of the note in the textarea
@@ -183,7 +189,21 @@ const renderNoteList = async (notes) => {
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
+// if (window.location.pathname === '/notes') {
+//   noteForm = document.querySelector('.note-form');
+//   noteTitle = document.querySelector('.note-title');
+//   noteText = document.querySelector('.note-textarea');
+//   saveNoteBtn = document.querySelector('.save-note');
+//   newNoteBtn = document.querySelector('.new-note');
+//   clearBtn = document.querySelector('.clear-btn');
+//   noteList = document.querySelector('.list-container .list-group');
 
+//   saveNoteBtn.addEventListener('click', handleNoteSave);
+//   newNoteBtn.addEventListener('click', handleNewNoteView);
+//   clearBtn.addEventListener('click', renderActiveNote);
+//   noteForm.addEventListener('input', handleRenderBtns);
+// }
+// getAndRenderNotes();
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
