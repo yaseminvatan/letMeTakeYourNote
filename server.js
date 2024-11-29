@@ -29,7 +29,7 @@ app.get('/api/notes', (req, res) => {
         } else {
             console.log("JSON.parse(data) is working")
             res.json(JSON.parse(data));
-            
+          
         }
     });
 });
