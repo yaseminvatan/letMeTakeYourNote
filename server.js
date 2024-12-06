@@ -27,6 +27,8 @@ app.get('/api/notes', (req, res) => {
             console.error('Error reading db.json:', err);
             res.status(500).json({ error: 'Failed to read notes' });
         } else {
+            console.log("Data: ", data);
+            console.log("Type: ", typeof data);
             console.log("JSON.parse(data) is working")
             res.json(JSON.parse(data));
           

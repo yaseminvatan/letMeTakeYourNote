@@ -13,14 +13,8 @@ if (window.location.pathname === '/notes') {
   saveNoteBtn = document.querySelector('.save-note');
   newNoteBtn = document.querySelector('.new-note');
   clearBtn = document.querySelector('.clear-btn');
-  noteList = document.querySelector('.list-container .list-group');
-
-//   saveNoteBtn.addEventListener('click', handleNoteSave);
-//   newNoteBtn.addEventListener('click', handleNewNoteView);
-//   clearBtn.addEventListener('click', renderActiveNote);
-//   noteForm.addEventListener('input', handleRenderBtns);
+  noteList = document.querySelectorAll('.list-container .list-group');
 }
-// getAndRenderNotes();
 
 // Show an element
 const show = (elem) => {
@@ -135,11 +129,21 @@ const handleRenderBtns = () => {
 
 // Render the list of note titles
 const renderNoteList = async (notes) => {
-  let jsonNotes = await notes.json();
-  if (window.location.pathname === '/notes') {
-    noteList.forEach((el) => (el.innerHTML = ''));
-  }
+ // console.log("Returned Data: ", notes);
+ // console.log("Type: ", typeof notes);
 
+  let jsonNotes = await notes.json();
+ // console.log("Notes: ", jsonNotes);
+ // console.log("Type: ", typeof jsonNotes);
+
+  if (window.location.pathname === '/notes') {
+   // const noteList = document.querySelectorAll('.list-group-item'); 
+   // console.log("notelist: ", noteList)
+    if (noteList) {
+      noteList.forEach((el) => (el.innerHTML = ''));
+    }
+  }
+  
   let noteListItems = [];
 
   // Returns HTML element with or without a delete button
@@ -183,27 +187,18 @@ const renderNoteList = async (notes) => {
   });
 
   if (window.location.pathname === '/notes') {
-    noteListItems.forEach((note) => noteList[0].append(note));
+   // const noteList = document.querySelectorAll('.note-list'); // Adjust selector as needed
+   // const noteListItems = document.querySelectorAll('.note-item'); // Adjust selector as needed
+    console.log("Items: ", noteListItems);
+    if (noteList.length > 0) { // Ensure noteList contains elements
+      noteListItems.forEach((note) => noteList[0].append(note));
+    }
   }
+  
 };
 
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(renderNoteList);
-// if (window.location.pathname === '/notes') {
-//   noteForm = document.querySelector('.note-form');
-//   noteTitle = document.querySelector('.note-title');
-//   noteText = document.querySelector('.note-textarea');
-//   saveNoteBtn = document.querySelector('.save-note');
-//   newNoteBtn = document.querySelector('.new-note');
-//   clearBtn = document.querySelector('.clear-btn');
-//   noteList = document.querySelector('.list-container .list-group');
-
-//   saveNoteBtn.addEventListener('click', handleNoteSave);
-//   newNoteBtn.addEventListener('click', handleNewNoteView);
-//   clearBtn.addEventListener('click', renderActiveNote);
-//   noteForm.addEventListener('input', handleRenderBtns);
-// }
-// getAndRenderNotes();
 if (window.location.pathname === '/notes') {
   saveNoteBtn.addEventListener('click', handleNoteSave);
   newNoteBtn.addEventListener('click', handleNewNoteView);
