@@ -100,10 +100,10 @@ If the application is deployed (e.g., on Render or Heroku), visit the live URL:
 ## **Screenshots**
 
 ### **Landing Page**
-![Landing Page](https://via.placeholder.com/800x400?text=Landing+Page)
+![Landing Page](https://localhost:3001)
 
 ### **Notes Page**
-![Notes Page](https://via.placeholder.com/800x400?text=Notes+Page)
+![Notes Page](https://localhost:3001/notes)
 
 ---
 
