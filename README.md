@@ -36,8 +36,8 @@ To set up the application locally, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/note-taker.git
-   cd note-taker
+   git clone (https://github.com/yaseminvatan/letMeTakeYourNote.git)
+   cd letMeTakeYourNote
    ```
 
 2. Install dependencies:
@@ -75,11 +75,6 @@ To set up the application locally, follow these steps:
 5. Click on a saved note in the list to view it.
 6. Use the "Delete" button to remove notes.
 
-### **Deployed Version**
-If the application is deployed (e.g., on Render or Heroku), visit the live URL:
-```
-<Deployment URL Here>
-```
 
 ---
 
